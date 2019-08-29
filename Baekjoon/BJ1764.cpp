@@ -4,44 +4,41 @@
 #include <algorithm>
 using namespace std;
 
-int n, m;
-vector<string> a,b, res;
-void solution();
+vector<string> hear;
+vector<string> res;
+
+void solution(int m);
 
 int main()
 {
-	string tmp;
-
+	int n, m;
 	cin >> n >> m;
-	a.assign(n, "");
-	b.assign(m, "");
 
-	for (int i = 0; i < n; i++)
-		cin >> a[i];
-	for (int i = 0; i < m; i++)
-		cin >> b[i];
+	hear.assign(n, "");
 
-	sort(a.begin(), a.end());
-	sort(b.begin(), b.end());
+	for(int i=0; i<n; i++) {
+		cin >> hear[i];
+	}
 
-	solution();
-	
-	cout << res.size() << endl;
-	for (string s : res)
-		cout << s << endl;
+	sort(hear.begin(), hear.end());
+	solution(m);
 
 	return 0;
 }
 
-void solution() {
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < m; j++) {
-			if (a[i] < b[j])
-				break;
-			if (a[i] == b[j]) {
-				res.push_back(a[i]);
-				break;
-			}
+void solution(int m) {
+	string str;
+	for(int i=0; i<m; i++) {
+		cin >> str;
+
+		if(binary_search(hear.begin(), hear.end(), str)) {
+			res.push_back(str);
 		}
+	}
+
+	sort(res.begin(), res.end());
+	cout << res.size() << endl;
+	for(string s : res) {
+		cout << s << endl;
 	}
 }
