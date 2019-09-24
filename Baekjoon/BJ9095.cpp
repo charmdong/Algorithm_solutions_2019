@@ -1,33 +1,32 @@
-/// 1,2,3 으로 숫자 나타내기
-
 #include <iostream>
+#include <vector>
 using namespace std;
 
-int ary[] = { 0,1,2,3 };
-int total = 0;
-void solution(int n);
+int solution(int n);
 
 int main()
 {
-	int caseCnt, n;
-	cin >> caseCnt;
-	while (caseCnt--) {
+	int testCase, n;
+	cin >> testCase;
+
+	while(testCase--) {
 		cin >> n;
-		solution(n);
-		cout << total << "\n";
-		total = 0;
+		cout << solution(n) << endl;
 	}
+
 	return 0;
 }
 
-void solution(int n) {
-	if (n == 0) {
-		total++;
-		return;
+int solution(int n) {
+	vector<int> dp(n + 1, 0);
+
+	dp[1] = 1;
+	dp[2] = 2;
+	dp[3] = 4;
+
+	for(int index = 4; index <= n; index++) {
+		dp[index] = dp[index - 1] + dp[index - 2] + dp[index - 3];
 	}
 
-	for (int i = 1; i <= 3; i++) {
-		if (n - ary[i] >= 0)
-			solution(n - ary[i]);
-	 }
+	return dp[n];
 }

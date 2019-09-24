@@ -1,43 +1,46 @@
-/// Dynamic Programming : 쉬운 계단 수
-
 #include <iostream>
 #define MOD 1000000000
 using namespace std;
 
-long dp[101][10]; // 길이가 N인 계단 수를 저장할 변수
-long solution(int len);
+long dp[101][10];
+
+long solution(int n);
 
 int main()
 {
-	int len;
-	cin >> len;
-	cout << solution(len) << endl;
+	int n;
+
+	cin >> n;
+	cout << solution(n) << endl;
+
 	return 0;
 }
 
-long solution(int len) {
-	long res=0;
-	// 길이 1의 경우
-	for (int i = 1; i <= 9; i++)
+long solution (int n) {
+	for (int i = 1; i <= 9; i++) {
 		dp[1][i] = 1;
+	}
 
-	for (int i = 2; i <= len; i++) {
-		for (int k = 0; k <= 9; k++) {
-			dp[i][k] = 0;
+	for(int i = 2; i <= n; i++) {
+		for(int j = 0; j <= 9; j++) {
+			dp[i][j] = 0;
 
-			if (k == 0)
-				dp[i][k] = dp[i - 1][1];
-			else if (k == 9)
-				dp[i][k] = dp[i - 1][8];
-			else
-				dp[i][k] = dp[i - 1][k - 1] + dp[i - 1][k + 1];
-			
-			dp[i][k] %= MOD;
+			if(j > 0) { // 1 ~ 9
+				dp[i][j] += dp[i - 1][j - 1];
+			}
+
+			if(j < 9) { // 0 ~ 8
+				dp[i][j] += dp[i - 1][j + 1];
+			}
+
+			dp[i][j] %= MOD;
 		}
 	}
 
-	for (int i = 0; i <= 9; i++)
-		res = (res + dp[len][i]) % MOD;
-	
-	return res;
+	long ans = 0;
+	for(int i = 0; i <= 9; i++) {
+		ans = (ans + dp[n][i]) % MOD;
+	}
+
+	return ans;
 }
