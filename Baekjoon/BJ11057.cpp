@@ -1,34 +1,41 @@
 #include <iostream>
+#define MOD 10007
 using namespace std;
 
-int dp[10][1000];
+int dp[1001][10];
+
 int solution(int n);
 
 int main()
 {
 	int n;
+
 	cin >> n;
 	cout << solution(n) << endl;
+
 	return 0;
 }
 
 int solution(int n) {
-	for (int i = 0; i < 10; i++)
-		dp[i][1] = 1;
+	int ans = 0;
 
-	for (int j = 2; j <= n; j++) {
-		for (int i = 0; i < 10; i++) {
-			for (int k = i; k < 10; k++) {
-				dp[i][j] += (dp[k][j - 1]) % 10007;
+	for (int index = 0; index < 10; index++) {
+		dp[1][index] = 1;
+	}
+
+	for (int index = 2; index <= n; index++) {
+		for(int num = 0; num < 10; num++) {
+			for(int last = 0; last <= num; last++) {
+				dp[index][num] += (dp[index - 1][last]);
+				dp[index][num] %= MOD;
 			}
 		}
 	}
 
-	int total = 0;
-	for (int i = 0; i < 10; i++) {
-		total += (dp[i][n]);
-		total %= 10007;
+	for(int index = 0; index < 10; index++) {
+		ans += (dp[n][index]);
+		ans %= MOD;
 	}
 
-	return total;
+	return ans;
 }

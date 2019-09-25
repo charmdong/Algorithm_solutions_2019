@@ -1,29 +1,50 @@
 #include <iostream>
+#include <vector>
 #include <algorithm>
 #define MAX 100000
 using namespace std;
 
-int t, n;
+vector<vector<int>> dp;
+
+int solution(int n, vector<vector<int>> board);
 
 int main()
 {
+	int t, n;
 	cin >> t;
-	while (t--) {
-		cin >> n;
-		int dp[2][MAX + 1], v[2][MAX + 1];
-		for (int i = 0; i < 2; i++)
-			for (int j = 1; j <= n; j++)
-				cin >> v[i][j];
-		dp[0][0] = dp[1][0] = 0;
-		dp[0][1] = v[0][1]; 
-		dp[1][1] = v[1][1];
 
-		for (int i = 2; i <= n; i++) {
-			dp[0][i] = max(dp[1][i - 1], dp[1][i - 2]) + v[0][i];
-			dp[1][i] = max(dp[0][i - 1], dp[0][i - 2]) + v[1][i];
+	while(t--) {
+		vector<vector<int>> board;
+
+		cin >> n;
+
+		board.assign(2, vector<int>(n + 1, 0));
+		dp.assign(2, vector<int>(n + 1, 0));
+
+		for(int row = 0; row < 2; row++) {
+			for(int col = 1; col <= n; col++) {
+				cin >> board[row][col];
+			}
 		}
-		cout << max(dp[0][n], dp[1][n]) << endl;
+
+		cout << solution(n, board) << endl;
 	}
 
 	return 0;
+}
+
+int solution(int n, vector<vector<int>> board) {
+	int answer = 0;
+
+	dp[0][0] = dp[1][0] = 0;
+	dp[0][1] = board[0][1];
+	dp[1][1] = board[1][1];
+
+	for(int index = 2; index <= n; index++) {
+		dp[0][index] = max(dp[1][index - 1], dp[1][index - 2]) + board[0][index];
+		dp[1][index] = max(dp[0][index - 1], dp[0][index - 2]) + board[1][index];
+	}
+
+	answer = max(dp[0][n], dp[1][n]);
+	return answer;
 }
