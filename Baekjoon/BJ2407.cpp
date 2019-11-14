@@ -17,6 +17,7 @@ long long solution(int n, int m) {
 
 	for (int i = 1; i <= n; i++) {
 		combination[i][0] = combination[i][i] = 1;
+		
 		for (int j = 1; j <= m; j++) 
 			combination[i][j] = combination[i - 1][j - 1] + combination[i - 1][j];
 	}

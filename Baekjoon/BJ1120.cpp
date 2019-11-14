@@ -16,7 +16,12 @@ int main()
 int solution(string str1, string str2) {
     int answer = 0;
 
-    // TODO:
+    /**
+     * TODO:
+     * 1. B - A의 길이 구하기
+     * 2. 1에서 구한 길이만큼 앞 뒤에 a~z 중 하나를 삽입
+     * 3. 차이 구하기
+     */ 
 
     return answer;
 }
