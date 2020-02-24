@@ -17,7 +17,7 @@ int main()
 	int start ,src, des;
 	cin >> n >> m >> start;
 
-	visited.assign(n+1, 0); // Á¤Á¡ °¹¼ö¸¸Å­ visited ¹è¿­ ÃÊ±âÈ­
+	visited.assign(n+1, 0); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ visited ï¿½è¿­ ï¿½Ê±ï¿½È­
 
 	for (int i = 0; i < m; i++) {
 		cin >> src >> des;
@@ -34,9 +34,9 @@ int main()
 void DFS(int start) {
 	visited[start] = 1;
 	cout << start << " ";
+
 	for (int i = 1; i <= n; i++) {
 		if (graph[start][i] != 0 && visited[i] == 0) {
-			visited[i] = 1;
 			DFS(i);
 		}
 	}
@@ -54,7 +54,9 @@ void BFS(int start) { // iterative
 	while (!q.empty()) {
 		tmp = q.front();
 		q.pop();
+		
 		cout << tmp << " ";
+
 		for (int i = 1; i <= n; i++) {
 			if (graph[tmp][i] != 0 && visited[i] == 0) {
 				visited[i] = 1;
@@ -62,5 +64,6 @@ void BFS(int start) { // iterative
 			}
 		}
 	}
+	
 	cout << endl;
 }

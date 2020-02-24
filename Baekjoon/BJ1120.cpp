@@ -1,27 +1,48 @@
+/**
+ * @author : donggun.chung
+ * @date : 2020.02.09
+ * @site : BOJ
+ * @prob_Info : 1120 문자열 
+ * @time : 0ms
+ * @memory : 1984KB
+ */
+
 #include <iostream>
 #include <string>
+
 using namespace std;
 
-int solution(string s1, string s2);
+int solution(string origin, string str);
 
 int main()
 {
-    string str1, str2;
-    cin >> str1 >> str2;
-    cout << solution(str1, str2);
+    string str, origin;
+
+    cin >> str >> origin;
+
+    cout << solution(origin, str) << endl;
 
     return 0;
 }
 
-int solution(string str1, string str2) {
-    int answer = 0;
+int solution(string origin, string str) {
+    int answer = origin.length();
+    int len = str.length();
+    int diffLen = origin.length() - len;
 
-    /**
-     * TODO:
-     * 1. B - A의 길이 구하기
-     * 2. 1에서 구한 길이만큼 앞 뒤에 a~z 중 하나를 삽입
-     * 3. 차이 구하기
-     */ 
+    for(int start = 0; start <= diffLen; start++) {
+        int diff = 0;
+
+        for(int index = start; index < start + len; index++) {
+            if(origin[index] != str[index - start]) {
+                diff++;
+            }
+        }
+
+        if(diff < answer) {
+            answer = diff;
+        }
+    }
 
     return answer;
 }
